@@ -1,7 +1,7 @@
 function A1(h, I, D, V, n) {
   var P = 110832;
   var A = 17.32 * (P/3000);
-  
+
   var R = []
 
   for(let i = 0; i < n; i++) {
@@ -9,7 +9,8 @@ function A1(h, I, D, V, n) {
     if ((i+1)*h > D) I = 0;
 
     var Ev = V + h*I*A;
-    
+    if (Ev < 0) Ev = 0;
+
     R.push([(i+1)*h, Ev])
   }
 
@@ -33,7 +34,10 @@ function A2(h, I, D, V, C, Qs, n) {
     if ((i+1)*h > D) I = 0;
 
     var Ev = V + h * (C*I*A - Qs);
-    var Ec = (C + (h*V/Vs*tk)*Cs) / (1 + (h*V/Vs*tk));
+    if (Ev < 0) Ev = 0;
+
+    var M = (h*V)/(Vs*tk);
+    var Ec = (C + M*Cs) / (1 + M);
 
     R.push([(i+1)*h, Ev, Ec]);
   }
@@ -65,7 +69,10 @@ function B(h, I, D, V, C, Qm, n, T) {
     var Qs = Qm * Math.sqrt((Ha - dH) / (Ha - Hi));
 
     var Ev = V + h * (C*I*A - Qs);
-    var Ec = (C + (h*V/Vs*tk)*Cs) / (1 + (h*V/Vs*tk));
+    if (Ev < 0) Ev = 0;
+
+    var M = (h*V)/(Vs*tk);
+    var Ec = (C + M*Cs) / (1 + M);
     
     if (T === 0) R.push([(i+1)*h, Ev, Ec, Ev/A]);
     if (T === 1) R.push([(i+1)*h, Ev, Ec]);
@@ -100,6 +107,7 @@ function C(h, I, D, V, C, Qm, n) {
     var q1v = h * (C*I*A - Qs);
     var q2v = h * (C*I*A + q1v - Qs);
     var Rv = V + 0.5 * (q1v + q2v);
+    if (Rv < 0) Rv = 0;
 
     var q1c = (h*V/Vs*tk) * (Cs - C);
     var q2c = (h*V/Vs*tk) * (Cs - q1c - C);
