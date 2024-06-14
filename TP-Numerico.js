@@ -21,7 +21,8 @@ function A2(h, I, D, V, C, Qs, n) {
   var P = 110832;
 
   var A = 17.32 * (P/3000);
-  var Vs = 3.5 * A;
+  var As = 8.66 * 8.66;
+  var Vs = 3.5 * As;
 
   var tk = 1 - (P/140000);
   var Cs = 0.9;
@@ -49,7 +50,8 @@ function B(h, I, D, V, C, Qm, n, T) {
   var P = 110832;
 
   var A = 17.32 * (P/3000);
-  var Vs = 3.5 * A;
+  var As = 8.66 * 8.66;
+  var Vs = 3.5 * As;
 
   var tk = 1 - (P/140000);
   var Cs = 0.9;
@@ -65,7 +67,7 @@ function B(h, I, D, V, C, Qm, n, T) {
     if (i !== 0) C = R[i-1][2];
     if ((i+1)*h > D) I = 0;
 
-    var dH = Hs - (V/A);
+    var dH = Hs - (V/As);
     var Qs = Qm * Math.sqrt((Ha - dH) / (Ha - Hi));
 
     var Ev = V + h * (C*I*A - Qs);
@@ -74,7 +76,7 @@ function B(h, I, D, V, C, Qm, n, T) {
     var M = (h*V)/(Vs*tk);
     var Ec = (C + M*Cs) / (1 + M);
     
-    if (T === 0) R.push([(i+1)*h, Ev, Ec, Ev/A]);
+    if (T === 0) R.push([(i+1)*h, Ev, Ec, Ev/As]);
     if (T === 1) R.push([(i+1)*h, Ev, Ec]);
   }
 
@@ -85,7 +87,8 @@ function C(h, I, D, V, C, Qm, n) {
   var P = 110832;
 
   var A = 17.32 * (P/3000);
-  var Vs = 3.5 * A;
+  var As = 8.66 * 8.66;
+  var Vs = 3.5 * As;
 
   var tk = 1 - (P/140000);
   var Cs = 0.9;
@@ -101,7 +104,7 @@ function C(h, I, D, V, C, Qm, n) {
     if (i !== 0) C = R[i-1][1];
     if ((i+1)*h > D) I = 0;
 
-    var dH = Hs - (V/A);
+    var dH = Hs - (V/As);
     var Qs = Qm * Math.sqrt((Ha - dH) / (Ha - Hi));
 
     var q1v = h * (C*I*A - Qs);
